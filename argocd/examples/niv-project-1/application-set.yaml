@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-set-niv-project-1
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/nivin/gitops-poc.git
+        revision: HEAD
+        directories:
+          - path: argocd/examples/niv-project-1/*
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      project: "niv-project-1"
+      source:
+        repoURL: https://github.com/nivin/gitops-poc.git
+        targetRevision: HEAD
+        path: '{{.path.path}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'argo-poc-niv-project-1'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
