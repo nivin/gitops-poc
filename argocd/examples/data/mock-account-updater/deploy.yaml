@@ -13,7 +13,7 @@ spec:
         app: mock-account-updater
     spec:
       containers:
-        - image: ghcr.io/stefanprodan/podinfo:6.5.4
+        - image: ghcr.io/stefanprodan/podinfo:6.5.4-non
           name: mock-account-updater
           ports:
             - containerPort: 80

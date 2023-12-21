@@ -26,6 +26,6 @@ spec:
         namespace: 'argo-poc-devops'
       syncPolicy:
         automated:
-          selfHeal: true
+          selfHeal: false
         syncOptions:
           - CreateNamespace=true
