@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: service-2
+  name: mock-data-api
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: service-2
+      app: mock-data-api
   template:
     metadata:
       labels:
-        app: service-2
+        app: mock-data-api
     spec:
       containers:
         - image: ghcr.io/stefanprodan/podinfo:6.5.4
-          name: service-2
+          name: mock-data-api
           ports:
             - containerPort: 80

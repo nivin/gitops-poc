@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mock-nopono
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mock-nopono
+  template:
+    metadata:
+      labels:
+        app: mock-nopono
+    spec:
+      containers:
+        - image: ghcr.io/stefanprodan/podinfo:6.5.4
+          name: mock-nopono
+          ports:
+            - containerPort: 80

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mock-appem
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mock-appem
+  template:
+    metadata:
+      labels:
+        app: mock-appem
+    spec:
+      containers:
+        - image: ghcr.io/stefanprodan/podinfo:6.5.4
+          name: mock-appem
+          ports:
+            - containerPort: 80

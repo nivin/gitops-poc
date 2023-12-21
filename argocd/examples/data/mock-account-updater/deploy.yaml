@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: guestbook-ui
+  name: mock-account-updater
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: guestbook-ui
+      app: mock-account-updater
   template:
     metadata:
       labels:
-        app: guestbook-ui
+        app: mock-account-updater
     spec:
       containers:
-        - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
-          name: guestbook-ui
+        - image: ghcr.io/stefanprodan/podinfo:6.5.4
+          name: mock-account-updater
           ports:
             - containerPort: 80

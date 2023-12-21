@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mock-campaign-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mock-campaign-service
+  template:
+    metadata:
+      labels:
+        app: mock-campaign-service
+    spec:
+      containers:
+        - image: ghcr.io/stefanprodan/podinfo:6.5.4
+          name: mock-campaign-service
+          ports:
+            - containerPort: 80

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: application-set-niv-project-1
+  name: application-set-project-devops
   namespace: argocd
 spec:
   goTemplate: true
@@ -11,19 +11,21 @@ spec:
         repoURL: https://github.com/nivin/gitops-poc.git
         revision: HEAD
         directories:
-          - path: argocd/examples/niv-project-1/*
+          - path: argocd/examples/devops/*
   template:
     metadata:
       name: '{{.path.basename}}'
     spec:
-      project: "niv-project-1"
+      project: "project-devops"
       source:
         repoURL: https://github.com/nivin/gitops-poc.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
-        server: https://kubernetes.default.svc
-        namespace: 'argo-poc-niv-project-1'
+        name: in-cluster
+        namespace: 'argo-poc-devops'
       syncPolicy:
+        automated:
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true

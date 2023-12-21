@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-set-project-data
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: [ "missingkey=error" ]
+  generators:
+    - git:
+        repoURL: https://github.com/nivin/gitops-poc.git
+        revision: HEAD
+        directories:
+          - path: argocd/examples/data/*
+  template:
+    metadata:
+      name: '{{.path.basename}}'
+    spec:
+      project: "project-data"
+      source:
+        repoURL: https://github.com/nivin/gitops-poc.git
+        targetRevision: HEAD
+        path: '{{.path.path}}'
+      destination:
+        name: in-cluster
+        namespace: 'argo-poc-data'
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
